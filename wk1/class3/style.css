@@ -1,0 +1,27 @@
+
+* {
+    box-sizing: border-box;
+}
+#fixed {
+    background: #eee;
+    position: fixed;
+    padding: 40px;
+    text-align: center;
+    margin: 0;
+    top: 0;
+    left: 0;
+}
+
+#relative {
+    background: #eee;
+}
+
+#absolute {
+    background: #999;
+}
+
+.wrapper {
+    width: 600px;
+    margin: 0 auto 0 auto;
+    padding: 20px;
+}
