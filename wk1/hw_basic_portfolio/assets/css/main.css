@@ -1,0 +1,18 @@
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px;
+}
+
+header {
+    background-color: white;
+    border-bottom: thin #666 solid;
+    width: 100%;
+}
+
+.header_container {
+    width: 960px;
+    height: 150px;
+}
