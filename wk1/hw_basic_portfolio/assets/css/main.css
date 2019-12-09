@@ -1,3 +1,4 @@
+/* General styles  */
 * {
     box-sizing: border-box;
     padding: 0;
@@ -6,6 +7,7 @@
     font-size: 12px;
 }
 
+/* Header styles  */
 header {
     background-color: white;
     border-bottom: thin #666 solid;
@@ -15,4 +17,27 @@ header {
 .header_container {
     width: 960px;
     height: 150px;
+    margin: 0 auto;
+}
+
+nav {
+    padding: 40px 0;
+}
+
+nav li {
+    display: inline;
+    border-right: solid #666 thin;
+    padding-right: 8px;
+}
+
+.logo {
+    background-color: #4aaaa5;
+    width: 150px;
+    height: 100px;
+    color: white;
+    text-align: center;
+    padding: 40px 0;
+    margin-top: 50px;
+    margin-right: 400px;
+    float: left;
 }
