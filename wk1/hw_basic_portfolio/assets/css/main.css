@@ -11,12 +11,20 @@ body {
     color: #777;
 }
 
+h1 {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+.wrapper {
+    background-image: url("../images/herringbone.png");
+    background-repeat: repeat;
+}
+
 /* Header styles  */
 header {
-    background-color: white;
+    background-color: #fff;
     border-bottom: 2px #ccc solid;
     width: 100%;
-    font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
 .header_container {
@@ -29,9 +37,7 @@ header {
 
 nav {
     padding: 40px 0;
-    position: absolute;
-    /* top: 50px; */
-    left: 650px;
+    float: right;
 }
 
 nav li {
@@ -59,7 +65,7 @@ nav li {
     /* top:50px; */
     float: left;
     letter-spacing: 1px;
-    
+
 }
 
 .logo h1 {
@@ -69,9 +75,59 @@ nav li {
 
 /* Main Content Rules  */
 
-#main_content {
+main {
     width: 960px;
     margin: 40px auto;
     border: thin #ddd solid;
     background-color: #fff;
+    padding: 25px;
+    height: 400px;
 }
+
+main h1 {
+    color: #4aaaa5;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 2px #ddd solid;
+}
+
+main p {
+    line-height: 1.25rem;
+    margin: 0 0 20px 0;
+    /* background-color: red; */
+}
+
+/* Footer Rules */
+footer {
+    height: 40px;
+    background-color: #666;
+    border-top: 3px #4aaaa5 solid;
+    text-align: center;
+    width: 100%;
+    margin: 0 auto;
+    padding: 20px;
+    color: #ddd;
+}
+
+/* About Page Rules */
+#portrait {
+    height: 200px;
+    width: 150px;
+    float: left;
+    margin-right: 20px;
+    margin-bottom: 20px;
+}
+
+/* Portfolio Page Rules */
+.portfolio_thumbnail {
+    position: relative;
+    height: 150px;
+    width: 100px;
+}
+
+.thumbnail_label {
+    background-color:#4aaaa5 ;
+}
+
+
+/* Contact Page Rules */
