@@ -8,31 +8,42 @@
 </head>
 
 <body>
-        <div class="wrapper">
-            <header>
-                <div class="header_container">
-                    <div class="logo">
-                        <h1>Robert Finkley</h1>
-                    </div>
-                    <nav>
-                        <ul>
-                            <li><a href="./index.html">About</a></li>
-                            <li class="separator">|</li>
-                            <li><a href="./portfolio.html">Portfolio</a></li>
-                            <li class="separator">|</li>
-                            <li><a href="./contact.html">Contact</a></li>
-                        </ul>
-                    </nav>
+    <div class="wrapper">
+        <header>
+            <div class="header_container">
+                <div class="logo">
+                    <h1>Robert Finkley</h1>
                 </div>
-            </header>
-            <main>
-                <h1>Contact</h1>
-                
-            </main>
-            <footer>
-                Copyright &copy;
-            </footer>
-        </div>
-    </body>
+                <nav>
+                    <ul>
+                        <li><a href="./index.html">About</a></li>
+                        <li class="separator">|</li>
+                        <li><a href="./portfolio.html">Portfolio</a></li>
+                        <li class="separator">|</li>
+                        <li><a href="./contact.html">Contact</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+        <main>
+            <h1>Contact</h1>
+            <form>
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name">
+                <label for="email">Email address</label>
+                <input type="email" id="email" name="email">
+                <label for="message">Message</label>
+                <textarea name="message" id="message" cols="30" rows="10"></textarea>
+                <!-- <input type="text" id="message" name="message"> -->
+                <input type="submit" value="Submit">
+            </form>
+
+        </main>
+        <div class="push"></div>
+    </div>
+    <footer>
+        Copyright &copy;
+    </footer>
+</body>
 
 </html>
