@@ -26,7 +26,6 @@ a:hover {
 body {
     font-size: 12px;
     color: #777;
-
 }
 
 h1 {
@@ -48,11 +47,11 @@ header {
 }
 
 .header_container {
-    width: 960px;
+    max-width: 960px;
     height: 100px;
     margin: 0 auto;
     position: relative;
-    background-color: #fff;
+
 }
 
 nav {
@@ -97,7 +96,7 @@ nav li {
 /* Main Content Rules  */
 
 main {
-    width: 960px;
+    max-width: 960px;
     margin: 40px auto;
     border: thin #ddd solid;
     background-color: #fff;
