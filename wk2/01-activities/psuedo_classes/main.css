@@ -1,0 +1,19 @@
+
+input[type="submit"] {
+    padding: 0;
+    border: 0;
+    height: 40px;
+    width: 60px;
+    background-color: blue;
+    color: yellow;
+}
+
+input[type="submit"]:hover {
+    color: red;
+}
+
+
+input[type="submit"]:hover {
+    color: red;
+}
+
