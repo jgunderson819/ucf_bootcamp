@@ -10,38 +10,42 @@ let quiz = {
         "Who won Best Actress in a Supporting Role?",
     ],
     q1: [
-        "RAMI MALEK | Bohemian Rhapsody",
-        "CHRISTIAN BALE | Vice",
-        "BRADLEY COOPER | A Star Is Born",
-        "WILLEM DAFOE   | At Eternity's Gate",
-        "VIGGO MORTENSEN | Green Book"
+        "Christian Bale",
+        "Bradley Cooper",
+        "Rami Malek",
+        "Willem Dafoe",
+        "Viggo Mortensen",
+
     ],
     q2: [
-        "MAHERSHALA ALI | Green Book",
-        "ADAM DRIVER | BlacKkKlansman",
-        "SAM ELLIOTT | A Star Is Born",
-        "RICHARD E. GRANT | Can You Ever Forgive Me?",
-        "SAM ROCKWELL | Vice"
+        "Mahershala Ali",
+        "Adam Driver",
+        "Sam Elliott",
+        "Richard E. Grant",
+        "Sam Rockwell",
+
     ],
     q3: [
-        "OLIVIA COLMAN | The Favourite",
-        "YALITZA APARICIO | Roma",
-        "GLENN CLOSE | The Wife",
-        "LADY GAGA | A Star Is Born",
-        "MELISSA MCCARTHY | Can You Ever Forgive Me?"
+        "Olivia Colman",
+        "Yalitza Aparicio",
+        "Glenn Close",
+        "Lady Gaga",
+        "Melissa Mccarthy"
+
     ],
     q4: [
-        "REGINA KING | If Beale Street Could Talk",
-        "AMY ADAMS | Vice",
-        "MARINA DE TAVIRA | Roma",
-        "EMMA STONE | The Favourite",
-        "RACHEL WEISZ | The Favourite"
+        "Regina King",
+        "Amy Adams",
+        "Marina De Tavira",
+        "Emma Stone",
+        "Rachel Weisz",
+
     ],
     answer: [
-        "RAMI MALEK | Bohemian Rhapsody",
-        "MAHERSHALA ALI | Green Book",
-        "OLIVIA COLMAN | The Favourite",
-        "REGINA KING | If Beale Street Could Talk"
+        "Rami Malek",
+        "Mahershala Ali",
+        "Olivia Colman",
+        "Regina King ",
     ]
 };
 
@@ -88,3 +92,48 @@ function count() {
         stop(intervalID);
     }
 }
+
+function loadQuiz() {
+    $(".main").append("<h1>Trivia Game</h1>");
+    $(".main").append("<div id='timer'>00:30</div>");
+    $(".main").append("<div class='questions'>");
+    start();
+    for (let i = 0; i < quiz.questions.length; i++) {
+        let form = `<form id=form${i}>`;
+        let question = `<h3>${quiz.questions[i]}`;
+        $(".questions").append(form);
+        $(`#form${i}`).append(question);
+    }
+    for (let i = 0;i<quiz.q1.length;i++) {
+        let formCheck = `<div class="form-check form-check-inline" id="formCheck${i}">`;
+        let input = `<input class="form-check-input" type="radio" id="q1a${i}" name="q1" value="${quiz.q1[i]}">`;
+        let label = `<label class="form-check-label" for="q1a${i}">${quiz.q1[i]}`;
+        let radioButton = formCheck + input + label;
+        $(`#form0`).append(radioButton);
+    }
+    for (let i = 0;i<quiz.q2.length;i++) {
+        let formCheck = `<div class="form-check form-check-inline" id="formCheck${i}">`;
+        let input = `<input class="form-check-input" type="radio" id="q2a${i}" name="q2" value="${quiz.q2[i]}">`;
+        let label = `<label class="form-check-label" for="q2a${i}">${quiz.q2[i]}`;
+        let radioButton = formCheck + input + label;
+        $(`#form1`).append(radioButton);
+    }
+    for (let i = 0;i<quiz.q3.length;i++) {
+        let formCheck = `<div class="form-check form-check-inline" id="formCheck${i}">`;
+        let input = `<input class="form-check-input" type="radio" id="q3a${i}" name="q3" value="${quiz.q3[i]}">`;
+        let label = `<label class="form-check-label" for="q3a${i}">${quiz.q3[i]}`;
+        let radioButton = formCheck + input + label;
+        $(`#form2`).append(radioButton);
+    }
+    for (let i = 0;i<quiz.q4.length;i++) {
+        let formCheck = `<div class="form-check form-check-inline" id="formCheck${i}">`;
+        let input = `<input class="form-check-input" type="radio" id="q4a${i}" name="q4" value="${quiz.q4[i]}">`;
+        let label = `<label class="form-check-label" for="q4a${i}">${quiz.q4[i]}`;
+        let radioButton = formCheck + input + label;
+        $(`#form3`).append(radioButton);
+    }
+}
+
+window.onload = function () {
+    this.loadQuiz();
+};
