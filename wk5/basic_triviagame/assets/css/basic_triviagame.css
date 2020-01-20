@@ -5,7 +5,7 @@ body {
 .container {
     background-color: yellow;
     margin-top: 4rem;
-    height: 30rem;
+    height: 40rem;
 }
 
 #start {
@@ -16,4 +16,15 @@ body {
     position: relative;
     margin: 4rem auto 4rem auto;
     padding-top: 4rem;
+}
+
+#done {
+    height: 10rem;
+    width: 15rem;
+    background-color: goldenrod;
+    border: wheat solid .20rem;
+    position: relative;
+    margin: 4rem auto 4rem auto;
+    padding-top: 4rem;
+    visibility: hidden;
 }
