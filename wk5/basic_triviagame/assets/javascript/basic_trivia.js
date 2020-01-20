@@ -100,6 +100,7 @@ function count() {
         $(".main").append(`<h3>Correct Answers: ${correct} </h3>`);
         $(".main").append(`<h3>Incorrect Answers: ${incorrect}</h3>`);
         $(".main").append(`<h3>Unanswered: ${unanswered}</h3>`);
+        $(".main").append("<div onclick='reset()' id='reset'>Reset</div>");
     }
 }
 
@@ -107,10 +108,11 @@ function done() {
     score();
     $(".questions").css("display", "none");
     $("#timer").css("display", "none");
-    $(".main").append("<h2>All Done!</h2>");
-    $(".main").append(`<h3>Correct Answers: ${correct} </h3>`);
-    $(".main").append(`<h3>Incorrect Answers: ${incorrect}</h3>`);
-    $(".main").append(`<h3>Unanswered: ${unanswered}</h3>`);
+    $(".main").append("<h2 id='allDone'>All Done!</h2>");
+    $(".main").append(`<h3 id='corAnswers'>Correct Answers: ${correct} </h3>`);
+    $(".main").append(`<h3 id='incAnswers'>Incorrect Answers: ${incorrect}</h3>`);
+    $(".main").append(`<h3 id='unanswered'>Unanswered: ${unanswered}</h3>`);
+    $(".main").append("<div onclick='reset()' id='reset'>Reset</div>");
     stop(intervalID);
 }
 
@@ -154,7 +156,6 @@ function loadQuiz() {
     $(".main").append("<div id='timer'>00:30</div>");
     $(".main").append("<div class='questions'>");
     start();
-    $("#done").css("visibility", "visible");
     for (let i = 0; i < quiz.questions.length; i++) {
         let form = `<form id=form${i} class="question">`;
         let question = `<h3>${quiz.questions[i]}`;
@@ -189,5 +190,21 @@ function loadQuiz() {
         let radioButton = formCheck + input + label;
         $(`#form3`).append(radioButton);
     }
-    $(".questions").append("<div onclick='done()' id='done'>Done</div>");    
+    $(".questions").append("<div onclick='done()' id='done'>Done</div>"); 
+    $("#done").css("visibility", "visible");   
+}
+
+function reset() {
+    $("#start").css("display","block");
+    $(".questions").remove();
+    $('#allDone').remove();
+    $('#corAnswers').remove();
+    $('#incAnswers').remove();
+    $('#unanswered').remove();
+    $('#reset').remove();
+    correct = 0;
+    incorrect = 0;
+    unanswered = 0;
+    time = 30;
+    clockRunning = false;
 }
