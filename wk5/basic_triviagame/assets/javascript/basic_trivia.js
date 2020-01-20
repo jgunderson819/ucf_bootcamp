@@ -2,6 +2,9 @@ let time = 30;
 let clockRunning = false;
 let intervalID;
 let converted = timeConverter(time);
+let correct = 0;
+let incorrect = 0;
+let unanswered = 0;
 let quiz = {
     questions: [
         "Who won Best Actor in a Leading Role?",
@@ -90,50 +93,101 @@ function count() {
     $("#timer").text(converted);
     if (time == 0) {
         stop(intervalID);
+        score();
+        $(".questions").css("display", "none");
+        $("#timer").css("display", "none");
+        $(".main").append("<h2>All Done!</h2>");
+        $(".main").append(`<h3>Correct Answers: ${correct} </h3>`);
+        $(".main").append(`<h3>Incorrect Answers: ${incorrect}</h3>`);
+        $(".main").append(`<h3>Unanswered: ${unanswered}</h3>`);
+    }
+}
+
+function done() {
+    score();
+    $(".questions").css("display", "none");
+    $("#timer").css("display", "none");
+    $(".main").append("<h2>All Done!</h2>");
+    $(".main").append(`<h3>Correct Answers: ${correct} </h3>`);
+    $(".main").append(`<h3>Incorrect Answers: ${incorrect}</h3>`);
+    $(".main").append(`<h3>Unanswered: ${unanswered}</h3>`);
+    stop(intervalID);
+}
+
+function score() {
+    let q1Answer = $("input[name=q1]:checked").val();
+    let q2Answer = $("input[name=q2]:checked").val();
+    let q3Answer = $("input[name=q3]:checked").val();
+    let q4Answer = $("input[name=q4]:checked").val();
+    if (q1Answer == "Rami Malek") {
+        correct++;
+    } else if (q1Answer == undefined) {
+        unanswered++;
+    } else {
+        incorrect++;
+    }
+    if (q2Answer == "Mahershala Ali") {
+        correct++;
+    } else if (q2Answer == undefined) {
+        unanswered++;
+    } else {
+        incorrect++;
+    }
+    if (q3Answer == "Olivia Colman") {
+        correct++;
+    } else if (q3Answer == undefined) {
+        unanswered++;
+    } else {
+        incorrect++;
+    }
+    if (q4Answer == "Regina King") {
+        correct++;
+    } else if (q4Answer == undefined) {
+        unanswered++;
+    } else {
+        incorrect++;
     }
 }
 
 function loadQuiz() {
-    $(".main").append("<h1>Trivia Game</h1>");
+    $("#start").css("display", "none");
     $(".main").append("<div id='timer'>00:30</div>");
     $(".main").append("<div class='questions'>");
     start();
+    $("#done").css("visibility", "visible");
     for (let i = 0; i < quiz.questions.length; i++) {
-        let form = `<form id=form${i}>`;
+        let form = `<form id=form${i} class="question">`;
         let question = `<h3>${quiz.questions[i]}`;
         $(".questions").append(form);
         $(`#form${i}`).append(question);
     }
-    for (let i = 0;i<quiz.q1.length;i++) {
+    for (let i = 0; i < quiz.q1.length; i++) {
         let formCheck = `<div class="form-check form-check-inline" id="formCheck${i}">`;
         let input = `<input class="form-check-input" type="radio" id="q1a${i}" name="q1" value="${quiz.q1[i]}">`;
         let label = `<label class="form-check-label" for="q1a${i}">${quiz.q1[i]}`;
         let radioButton = formCheck + input + label;
         $(`#form0`).append(radioButton);
     }
-    for (let i = 0;i<quiz.q2.length;i++) {
+    for (let i = 0; i < quiz.q2.length; i++) {
         let formCheck = `<div class="form-check form-check-inline" id="formCheck${i}">`;
         let input = `<input class="form-check-input" type="radio" id="q2a${i}" name="q2" value="${quiz.q2[i]}">`;
         let label = `<label class="form-check-label" for="q2a${i}">${quiz.q2[i]}`;
         let radioButton = formCheck + input + label;
         $(`#form1`).append(radioButton);
     }
-    for (let i = 0;i<quiz.q3.length;i++) {
+    for (let i = 0; i < quiz.q3.length; i++) {
         let formCheck = `<div class="form-check form-check-inline" id="formCheck${i}">`;
         let input = `<input class="form-check-input" type="radio" id="q3a${i}" name="q3" value="${quiz.q3[i]}">`;
         let label = `<label class="form-check-label" for="q3a${i}">${quiz.q3[i]}`;
         let radioButton = formCheck + input + label;
         $(`#form2`).append(radioButton);
     }
-    for (let i = 0;i<quiz.q4.length;i++) {
+    for (let i = 0; i < quiz.q4.length; i++) {
         let formCheck = `<div class="form-check form-check-inline" id="formCheck${i}">`;
         let input = `<input class="form-check-input" type="radio" id="q4a${i}" name="q4" value="${quiz.q4[i]}">`;
         let label = `<label class="form-check-label" for="q4a${i}">${quiz.q4[i]}`;
         let radioButton = formCheck + input + label;
         $(`#form3`).append(radioButton);
     }
+    $(".questions").append("<div onclick='done()' id='done'>Done</div>");    
 }
-
-window.onload = function () {
-    this.loadQuiz();
-};
