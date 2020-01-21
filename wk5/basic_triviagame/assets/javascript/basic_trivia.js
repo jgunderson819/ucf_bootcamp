@@ -82,11 +82,6 @@ function timeConverter(t) {
     return minutes + ":" + seconds;
 }
 
-function reset() {
-    time = 30;
-    $(".timeRemaining").text("00:30");
-}
-
 function count() {
     time--;
     let converted = timeConverter(time);
@@ -96,10 +91,10 @@ function count() {
         score();
         $(".questions").css("display", "none");
         $("#timer").css("display", "none");
-        $(".main").append("<h2>All Done!</h2>");
-        $(".main").append(`<h3>Correct Answers: ${correct} </h3>`);
-        $(".main").append(`<h3>Incorrect Answers: ${incorrect}</h3>`);
-        $(".main").append(`<h3>Unanswered: ${unanswered}</h3>`);
+        $(".main").append("<h2 id='allDone'>All Done!</h2>");
+        $(".main").append(`<h3 id='corAnswers'>Correct Answers: ${correct} </h3>`);
+        $(".main").append(`<h3 id='incAnswers'>Incorrect Answers: ${incorrect}</h3>`);
+        $(".main").append(`<h3 id='unanswered'>Unanswered: ${unanswered}</h3>`);
         $(".main").append("<div onclick='reset()' id='reset'>Reset</div>");
     }
 }
@@ -107,7 +102,7 @@ function count() {
 function done() {
     score();
     $(".questions").css("display", "none");
-    $("#timer").css("display", "none");
+    $("#timer").remove();
     $(".main").append("<h2 id='allDone'>All Done!</h2>");
     $(".main").append(`<h3 id='corAnswers'>Correct Answers: ${correct} </h3>`);
     $(".main").append(`<h3 id='incAnswers'>Incorrect Answers: ${incorrect}</h3>`);
@@ -201,6 +196,7 @@ function reset() {
     $('#corAnswers').remove();
     $('#incAnswers').remove();
     $('#unanswered').remove();
+    $('#timer').remove();
     $('#reset').remove();
     correct = 0;
     incorrect = 0;
