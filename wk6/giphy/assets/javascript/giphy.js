@@ -41,3 +41,18 @@ $("#submit").on("click", function () {
         $("#animalText").val("");
     }
 });
+
+// Create ajax request
+let queryURL = "https://api.giphy.com/v1/gifs/search?api_key=FGLJYIo5FRRuG0foJ1456WMaClBF0zQN";
+let q = "&q=" + "dog";
+let limit = "&limit=" + 5;
+let rating = "&rating=" + "";
+
+$.ajax({
+    url: queryURL + q + limit,
+    method: "GET"
+}).then(function (response) {
+    console.log(response);
+    data = response.data;
+    console.log(data);
+});
