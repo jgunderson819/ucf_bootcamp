@@ -44,15 +44,35 @@ $("#submit").on("click", function () {
 
 // Create ajax request
 let queryURL = "https://api.giphy.com/v1/gifs/search?api_key=FGLJYIo5FRRuG0foJ1456WMaClBF0zQN";
-let q = "&q=" + "dog";
+let q = "&q=";
 let limit = "&limit=" + 5;
 let rating = "&rating=" + "";
 
-$.ajax({
-    url: queryURL + q + limit,
-    method: "GET"
-}).then(function (response) {
-    console.log(response);
-    data = response.data;
-    console.log(data);
+// Create click event for querying the Giphy API
+$("body").on("click", ".button", function () {
+    let value = $(this).attr("value");
+    let url = queryURL+q+value+limit;
+    console.log(url);
+    
+    $.ajax({
+        url: url,
+        method: "GET"
+    }).then(function (response) {
+        console.log(response);
+        data = response.data;
+        console.log(data);
+        for (let i = 0; i < data.length; i++) {
+            let img = $("<img>");
+            let still = data[i].images.fixed_height_still.url;
+            let animate = data[i].images.fixed_height.url;
+            img.addClass("gif");
+            img.attr({
+                "src": still,
+                "data-still": still,
+                "data-animate": animate,
+                "data-state": "still"
+            });
+            $(".giphyContainer").prepend(img);
+        }
+    });
 });
