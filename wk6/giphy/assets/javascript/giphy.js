@@ -20,3 +20,24 @@ function addButtons() {
 
 // Call the addButtons function
 addButtons();
+
+// Create new button everytime something is entered into the textbox and submitted
+$("#submit").on("click", function () {
+    event.preventDefault();
+    if ($("#animalText").val() == "") {
+        alert("You need to enter a value");
+    } else {
+        let value = $("#animalText").val().trim();
+        animals.push(value);
+        let button = $("<button>");
+        button.addClass("button");
+        button.attr({
+            "name": `${animals[animals.length-1]}`,
+            "type": "submit",
+            "value": `${animals[animals.length-1]}`
+        });
+        button.text(`${animals[animals.length-1]}`);
+        $(".giphyButtons").append(button);
+        $("#animalText").val("");
+    }
+});
