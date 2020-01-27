@@ -1,4 +1,6 @@
+//Create initial array
 let animals = ["rabbit", "horse", "porcupine", "cat", "squirrel", "woodchuck", "moose", "snake", "camel", "lion", "tiger", "bear"];
+
 // Add a button to HTML for every value in the animals array
 function addButtons() {
     for (let i = 0; i < animals.length; i++) {
@@ -58,6 +60,10 @@ $("body").on("click", ".button", function () {
         data = response.data;
         console.log(data);
         for (let i = 0; i < data.length; i++) {
+            let d = $("<div>");
+            let p = $("<p>");
+            p.text("Rating: " + data[i].rating);
+            d.append(p);
             let img = $("<img>");
             let still = data[i].images.fixed_height_still.url;
             let animate = data[i].images.fixed_height.url;
@@ -68,11 +74,13 @@ $("body").on("click", ".button", function () {
                 "data-animate": animate,
                 "data-state": "still"
             });
-            $(".giphyContainer").prepend(img);
+            d.append(img);
+            $(".giphyContainer").prepend(d);
         }
     });
 });
 
+//Create on click event for starting and stopping the gif's
 $("body").on("click", ".gif", function () {
     // The attr jQuery method allows us to get or set the value of any attribute on our HTML element
     var state = $(this).attr("data-state");
