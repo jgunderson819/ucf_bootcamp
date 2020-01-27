@@ -1,3 +1,22 @@
 body {
     font-family: 'Roboto', sans-serif;
 }
+
+.wrapper {
+    display: grid;
+    grid-template-columns: 40% 60%;
+    grid-gap: 2rem;
+}
+
+.game {
+    grid-column: 1/2;
+}
+
+.chatBox {
+    grid-column: 2/3;
+}
+
+img {
+    height: 200px;
+    width: 200px;
+}
