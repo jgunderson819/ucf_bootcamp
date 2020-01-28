@@ -11,7 +11,7 @@
         };
         // Initialize Firebase
         firebase.initializeApp(firebaseConfig);
-        firebase.analytics();
+        // firebase.analytics();
         // Create variable to store fire
         let database = firebase.database();
 
@@ -20,13 +20,11 @@
         // Create snapshot of connectedRef to track connections
         let connectedUsers = database.ref('/connections');
 
-        connectedRef.on("value", function(snap) {
-           
-                connectedUsers.push(true);
-
-        }, function(errorObject) {
-            console.log("The read failed: " + errorObject.code);
-        });
-
-
-
+        connectedRef.on("value", function (snap) {
+                if (snap.val()) {
+                    connectedUsers.push(true).onDisconnect().remove();
+                }
+            },
+            function (errorObject) {
+                console.log("The read failed: " + errorObject.code);
+            });
