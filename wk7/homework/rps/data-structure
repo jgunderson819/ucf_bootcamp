@@ -1,0 +1,42 @@
+Rock Paper Scissors
+{
+    rps: {
+        connections: {
+            1: {
+                conID: "..."
+            }
+
+            2: {
+                conID: "..."
+            }
+        }
+        players: {
+            1: {
+                name: "",
+                wins: 0,
+                losses: 0,
+                choice: "",
+            }
+            2: {
+                name: "",
+                wins: 0,
+                losses: 0,
+                choice: "",
+            }
+        }
+        messages: {
+            1: {
+                m1: {
+                    name: "",
+                    message: "",
+                    timestamp: 123454,
+                }
+                m2: {
+                    name: "",
+                    message: "",
+                    timestamp: 123545,
+                }
+            }
+        }
+    }
+}
