@@ -4,8 +4,9 @@ body {
 
 .wrapper {
     display: grid;
-    grid-template-columns: 40% 60%;
+    grid-template-columns: 80% 20%;
     grid-gap: 2rem;
+    height: 100vh;
 }
 
 .game {
