@@ -18,7 +18,10 @@ connectedRef.on("value", function (snap) {
     });
 
 
-
+$('#submit').on("click", function(event) {
+    event.preventDefault();
+    
+});    
 
 // Assume the following situations.
 
