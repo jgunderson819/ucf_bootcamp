@@ -15,28 +15,13 @@ database.ref().orderByChild('frequency').on("value", function (snapshot) {
         let databaseFirstTrain = childSnapshot.val().firstTrain;
         let databaseFrequency = childSnapshot.val().frequency;
 
-        // Assumptions
         var tFrequency = databaseFrequency;
-
-        // Time is 3:30 AM
         var firstTime = databaseFirstTrain;
-
-        // First Time (pushed back 1 year to make sure it comes before current time)
         var firstTimeConverted = moment(firstTime, "HH:mm").subtract(1, "years");
-
-        // Current Time
         var currentTime = moment();
-
-        // Difference between the times
         var diffTime = moment().diff(moment(firstTimeConverted), "minutes");
-
-        // Time apart (remainder)
         var tRemainder = diffTime % tFrequency;
-
-        // Minute Until Train
         var tMinutesTillTrain = tFrequency - tRemainder;
-
-        // Next Train
         var nextTrain = moment().add(tMinutesTillTrain, "minutes");
 
         $("#trainSchedule").append(
@@ -62,20 +47,15 @@ $('#submit').on("click", function (event) {
     var frequency = $("#trainFrequency").val().trim();
 
     if (trainName == "" || trainDestination == "" || firstTrain == "" || frequency == "") {
-        alert("Required field is blank");
-        return false;
+            $('#emptyInput').modal('show');
     } else {
 
-        // Creates local "temporary" object for holding employee data
         var newTrain = {
             trainName: trainName,
             trainDestination: trainDestination,
             firstTrain: firstTrain,
             frequency: frequency
         };
-
-        console.log(newTrain);
-
 
         database.ref().push(newTrain);
 
@@ -85,41 +65,19 @@ $('#submit').on("click", function (event) {
             let databaseFirstTrain = childSnapshot.val().firstTrain;
             let databaseFrequency = childSnapshot.val().frequency;
 
-            // Assumptions
             var tFrequency = databaseFrequency;
-
-            // Time is 3:30 AM
             var firstTime = databaseFirstTrain;
-
-            // First Time (pushed back 1 year to make sure it comes before current time)
             var firstTimeConverted = moment(firstTime, "HH:mm").subtract(1, "years");
-            console.log(firstTimeConverted);
-
-            // Current Time
             var currentTime = moment();
-            console.log("CURRENT TIME: " + moment(currentTime).format("hh:mm"));
-
-            // Difference between the times
             var diffTime = moment().diff(moment(firstTimeConverted), "minutes");
-            console.log("DIFFERENCE IN TIME: " + diffTime);
-
-            // Time apart (remainder)
             var tRemainder = diffTime % tFrequency;
-            console.log(tRemainder);
-
-            // Minute Until Train
             var tMinutesTillTrain = tFrequency - tRemainder;
-            console.log("MINUTES TILL TRAIN: " + tMinutesTillTrain);
-
-            // Next Train
             var nextTrain = moment().add(tMinutesTillTrain, "minutes");
-            console.log("ARRIVAL TIME: " + moment(nextTrain).format("hh:mm"));
 
             $("#trainName").val("");
             $("#trainDestination").val("");
             $("#trainFirstTime").val("");
             $("#trainFrequency").val("");
-
         });
 
     }
