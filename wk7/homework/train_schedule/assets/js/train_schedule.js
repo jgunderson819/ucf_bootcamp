@@ -5,83 +5,123 @@ let connectedRef = database.ref(".info/connected");
 // Create snapshot of connectedRef to track connections
 let connectedUsers = database.ref('/connections');
 
+database.ref().orderByChild('frequency').on("value", function (snapshot) {
+    $("#trainSchedule").empty();
 
+    snapshot.forEach(function (childSnapshot) {
 
-//Added entry into connected users for every connection logged in .info/connected
-connectedRef.on("value", function (snap) {
-        if (snap.val()) {
-            connectedUsers.push(true).onDisconnect().remove();
-        }
-    },
-    function (errorObject) {
-        console.log("The read failed: " + errorObject.code);
+        let databaseTrainName = childSnapshot.val().trainName;
+        let databaseTrainDestination = childSnapshot.val().trainDestination;
+        let databaseFirstTrain = childSnapshot.val().firstTrain;
+        let databaseFrequency = childSnapshot.val().frequency;
+
+        // Assumptions
+        var tFrequency = databaseFrequency;
+
+        // Time is 3:30 AM
+        var firstTime = databaseFirstTrain;
+
+        // First Time (pushed back 1 year to make sure it comes before current time)
+        var firstTimeConverted = moment(firstTime, "HH:mm").subtract(1, "years");
+
+        // Current Time
+        var currentTime = moment();
+
+        // Difference between the times
+        var diffTime = moment().diff(moment(firstTimeConverted), "minutes");
+
+        // Time apart (remainder)
+        var tRemainder = diffTime % tFrequency;
+
+        // Minute Until Train
+        var tMinutesTillTrain = tFrequency - tRemainder;
+
+        // Next Train
+        var nextTrain = moment().add(tMinutesTillTrain, "minutes");
+
+        $("#trainSchedule").append(
+            $("<tr>").append(
+                $("<td>").text(databaseTrainName),
+                $("<td>").text(databaseTrainDestination),
+                $("<td>").text(databaseFrequency),
+                $("<td>").text(moment(nextTrain).format("hh:mm A")),
+                $("<td>").text(tMinutesTillTrain)
+            )
+        );
     });
 
+});
 
-$('#submit').on("click", function(event) {
+$('#submit').on("click", function (event) {
     event.preventDefault();
-    
-});    
 
-// Assume the following situations.
+    // Grabs user input
+    var trainName = $("#trainName").val().trim();
+    var trainDestination = $("#trainDestination").val().trim();
+    var firstTrain = $("#trainFirstTime").val().trim();
+    var frequency = $("#trainFrequency").val().trim();
 
-// (TEST 1)
-// First Train of the Day is 3:00 AM
-// Assume Train comes every 3 minutes.
-// Assume the current time is 3:16 AM....
-// What time would the next train be...? (Use your brain first)
-// It would be 3:18 -- 2 minutes away
+    if (trainName == "" || trainDestination == "" || firstTrain == "" || frequency == "") {
+        alert("Required field is blank");
+        return false;
+    } else {
 
-// (TEST 2)
-// First Train of the Day is 3:00 AM
-// Assume Train comes every 7 minutes.
-// Assume the current time is 3:16 AM....
-// What time would the next train be...? (Use your brain first)
-// It would be 3:21 -- 5 minutes away
+        // Creates local "temporary" object for holding employee data
+        var newTrain = {
+            trainName: trainName,
+            trainDestination: trainDestination,
+            firstTrain: firstTrain,
+            frequency: frequency
+        };
+
+        console.log(newTrain);
 
 
-// ==========================================================
+        database.ref().push(newTrain);
 
-// Solved Mathematically
-// Test case 1:
-// 16 - 00 = 16
-// 16 % 3 = 1 (Modulus is the remainder)
-// 3 - 1 = 2 minutes away
-// 2 + 3:16 = 3:18
+        database.ref().on("child_added", function (childSnapshot, prevChildKey) {
+            let databaseTrainName = childSnapshot.val().trainName;
+            let databaseTrainDestination = childSnapshot.val().trainDestination;
+            let databaseFirstTrain = childSnapshot.val().firstTrain;
+            let databaseFrequency = childSnapshot.val().frequency;
 
-// Solved Mathematically
-// Test case 2:
-// 16 - 00 = 16
-// 16 % 7 = 2 (Modulus is the remainder)
-// 7 - 2 = 5 minutes away
-// 5 + 3:16 = 3:21
+            // Assumptions
+            var tFrequency = databaseFrequency;
 
-// Assumptions
-var tFrequency = 3;
+            // Time is 3:30 AM
+            var firstTime = databaseFirstTrain;
 
-// Time is 3:30 AM
-var firstTime = "03:30";
+            // First Time (pushed back 1 year to make sure it comes before current time)
+            var firstTimeConverted = moment(firstTime, "HH:mm").subtract(1, "years");
+            console.log(firstTimeConverted);
 
-// First Time (pushed back 1 year to make sure it comes before current time)
-var firstTimeConverted = moment(firstTime, "HH:mm").subtract(1, "years");
-console.log(firstTimeConverted);
+            // Current Time
+            var currentTime = moment();
+            console.log("CURRENT TIME: " + moment(currentTime).format("hh:mm"));
 
-// Current Time
-var currentTime = moment();
-console.log("CURRENT TIME: " + moment(currentTime).format("hh:mm"));
+            // Difference between the times
+            var diffTime = moment().diff(moment(firstTimeConverted), "minutes");
+            console.log("DIFFERENCE IN TIME: " + diffTime);
 
-// Difference between the times
-var diffTime = moment().diff(moment(firstTimeConverted), "minutes");
-console.log("DIFFERENCE IN TIME: " + diffTime);
+            // Time apart (remainder)
+            var tRemainder = diffTime % tFrequency;
+            console.log(tRemainder);
 
-// Time apart (remainder)
-var tRemainder = diffTime % tFrequency;
-console.log(tRemainder);
+            // Minute Until Train
+            var tMinutesTillTrain = tFrequency - tRemainder;
+            console.log("MINUTES TILL TRAIN: " + tMinutesTillTrain);
 
-// Minute Until Train
-var tMinutesTillTrain = tFrequency - tRemainder;
-console.log("MINUTES TILL TRAIN: " + tMinutesTillTrain);
+            // Next Train
+            var nextTrain = moment().add(tMinutesTillTrain, "minutes");
+            console.log("ARRIVAL TIME: " + moment(nextTrain).format("hh:mm"));
 
-// Next Train
-var nextTrain = moment().add(tMinutesTillTrain, "minutes");
-console.log("ARRIVAL TIME: " + moment(nextTrain).format("hh:mm"));
+            $("#trainName").val("");
+            $("#trainDestination").val("");
+            $("#trainFirstTime").val("");
+            $("#trainFrequency").val("");
+
+        });
+
+    }
+
+});
