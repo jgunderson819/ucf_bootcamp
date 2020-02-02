@@ -63,5 +63,5 @@ connectedUsers.on("value", function (snap) {
 //     ties++;
 //   } else {
 //     losses++;
-// 3. If a player types something in the messageInput add it to the chatbox with an identider and           timestamp
+// 3. If a player types something in the messageInput add it to the chatbox with an identider and timestamp
 // 4. If a player disconnects reset the game.
